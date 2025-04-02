@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from items.models import Item , Category
 from .form import SignupForm
@@ -10,6 +11,10 @@ def index(request):
 def contact (request):
     return render(request,'core/contact.html')
 
+
+def logout(request):
+    logout(request)
+    return redirect('/login')
 
 def signup(request):
     if request.method == 'POST':
