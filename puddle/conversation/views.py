@@ -13,7 +13,7 @@ def new_conversation(request, item_pk):
     conversations = Conversation.objects.filter(item=item).filter(members__in=[request.user.id])
 
     if conversations:
-        return redirect('conversation:detail',pk=conversations.first().id) # Cette ligne ne fait rien, elle peut être supprimée.
+        return redirect('conversation:detail',pk=conversations.first().id)
 
     form = ConversationMessageForm()  # Initialisation de `form` pour les requêtes GET
 

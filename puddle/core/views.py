@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import  logout
 from django.shortcuts import render, redirect
 from items.models import Item , Category
 from .form import SignupForm
@@ -12,7 +13,7 @@ def contact (request):
     return render(request,'core/contact.html')
 
 
-def logout(request):
+def logout_user(request):
     logout(request)
     return redirect('/login')
 
