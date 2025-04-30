@@ -1,39 +1,43 @@
- {% extends "core/base.html" %} 
+{% extends "core/base.html" %} 
 
- {%block title%}Home {%endblock title%}
- {%block content%}
- <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-  <h2 class="mb-12 text-2xl text-center">Newest items</h2>
-  <div class="grid grid-cols-3 gap-3">
-   {% for item in items %}
-      <div>
-          <a href="{% url 'item:detail' item.id %}">
-            <div>
-                <img src="{{item.image.url}}" class="rounded-t-xl"/>
-            </div>
-            <div class="p-6 bg-white rounded-b-xl">
-               <h2 class="text-2xl">{{item.name}}</h2>
-               <p class="text-gray-500">Price: {{item.price}}$</p>
-            </div>
-          </a>
-      </div>
-   {% endfor %}
-   
-  </div>
- </div>
- <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center">Categories</h2>
-    <div class="grid grid-cols-3 gap-3">
-        {% for  categorie in categories  %}
-        <div>
-            <a href="">
-              <div class="p-6 bg-white rounded-b-xl">
-                 <h2 class="text-2xl">{{categorie.name}}</h2>
-                 <p class="text-gray-500">{{categorie.items.count}} items</p>
-              </div>
-            </a>
+{%block title%}Accueil{%endblock title%}
+
+{%block content%}
+<div class="max-w-7xl mx-auto">
+    <!-- Section Articles -->
+    <div class="mt-8 mb-12">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Nos Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for item in items %}
+                <div class="bg-white rounded-xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                    <a href="{% url 'item:detail' item.id %}" class="block">
+                        <div class="relative">
+                            <img src="{{item.image.url}}" class="w-full h-64 object-cover" alt="{{item.name}}"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{item.name}}</h3>
+                            <p class="text-teal-600 font-medium">{{item.price}} fcfa</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+    </div>
+
+    <!-- Section Catégories -->
+    <div class="mt-12 mb-8">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Catégories</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for categorie in categories %}
+                <div class="bg-white rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-lg hover:bg-gray-50">
+                    <a href="" class="block">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">{{categorie.name}}</h3>
+                        <p class="text-gray-500">{{categorie.items.count}} articles disponibles</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
- {%endblock%}
+{%endblock%}

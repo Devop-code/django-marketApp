@@ -1,38 +1,117 @@
 {% extends "core/base.html" %}
 
-{% block title%}Sign up{% endblock  %}
+{% block title%}Inscription{% endblock %}
 
 {% block content %}
-   <div class="w-1/2 my-6 mx-auto bg-gray-100 rounded-xl p-4">
-    <h1 class="mb-6 text-3xl">Sign up</h1>
-     <form method = "post" action=".">
-      {% csrf_token %}
-      {{form.non_field_errors}}
-         <div class="mb-3">
-             <label class="inline-block mb-2">Username</label>
-             {{form.username}}
-         </div>
-         <div class="mb-3">
-             <label class="inline-block mb-2">Email</label>
-             {{form.email}}
-         </div>
-         <div class="mb-3">
-             <label class="inline-block mb-2">password</label>
-             {{form.password1}}
-         </div>
-         <div class="mb-3">
-             <label class="inline-block mb-2">Repeat password</label>
-             {{form.password2}}
-         </div>
-         {% if form.errors  or form.non_field_errors%}
-         <div class="mb-3 p-6 bg-red-100 rounded-xl">
-             {% for field in form%}
-             {{field.errors}}
-             {%endfor%}
-             {{form.non_field_errors}}
-         </div>
-         {%endif%}
-      <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
-     </form>
-   </div>
-{% endblock  %}
+<div class="max-w-md mx-auto my-12">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Créer un compte</h1>
+            <p class="text-gray-600">Rejoignez notre communauté</p>
+        </div>
+        
+        <form method="post" action="." class="space-y-6">
+            {% csrf_token %}
+            
+            {% if form.errors or form.non_field_errors %}
+            <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div class="flex items-center">
+                    <svg class="h-5 w-5 text-red-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <div>
+                        {% for field in form %}
+                            {{field.errors}}
+                        {% endfor %}
+                        {{form.non_field_errors}}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nom d'utilisateur</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                        </div>
+                        <input type="text" name="username" 
+                               class="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
+                               placeholder="Choisissez un nom d'utilisateur">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <input type="email" name="email" 
+                               class="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
+                               placeholder="Entrez votre email">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <input type="password" name="password1" 
+                               class="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
+                               placeholder="Créez un mot de passe">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirmer le mot de passe</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <input type="password" name="password2" 
+                               class="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
+                               placeholder="Confirmez votre mot de passe">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <input id="terms" name="terms" type="checkbox" 
+                       class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded">
+                <label for="terms" class="ml-2 block text-sm text-gray-700">
+                    J'accepte les <a href="#" class="text-teal-600 hover:text-teal-500">conditions d'utilisation</a>
+                </label>
+            </div>
+
+            <button type="submit" 
+                    class="w-full py-3 px-4 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors duration-200 font-medium flex items-center justify-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                </svg>
+                S'inscrire
+            </button>
+        </form>
+
+        <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600">
+                Déjà un compte ? 
+                <a href="{% url 'core:login' %}" class="font-medium text-teal-600 hover:text-teal-500">
+                    Se connecter
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
